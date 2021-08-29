@@ -53,12 +53,29 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
+        //handel file upload
+        if($request->hasfile('cover_image')){
+            //get filename with exitension
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalImage();
+            //get file name
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILE);
+            //get file extension
+            $extension = $request->file('cover_image')->getOriginalClientExtension();
+            //filename to store
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            //upload image
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        }else{
+            $fileNameToStore = 'noimage.jpg';
+        }
         $post = new Post();
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth()->user()->id;
+        $post->cover_image = $fileNameToStore;
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Created Successfuly');
@@ -127,6 +144,6 @@ class PostsController extends Controller
             return redirect('posts')->with('error', 'Unauthorized Deleting Access.');
         }
         $post->delete();
-        return redirect('/posts')->with('success', 'Post Deleted Successfuly'); 
+        return redirect('/posts')->with('success', 'Post Deleted Successfuly');
     }
 }
