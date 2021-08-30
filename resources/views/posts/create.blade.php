@@ -3,7 +3,7 @@
 @section('content')
     <h1>Create Posts</h1>
             {{-- <?php $arr = $errors->all();?> --}}
-    {!! Form::open(['method' => 'POST', 'action' => 'App\Http\Controllers\PostsController@store', 'enctype' => 'multipart/data']) !!}
+    {!! Form::open(['method' => 'POST', 'action' => 'App\Http\Controllers\PostsController@store', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
             {{ Form::label('title', 'Title')}}
             {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title']) !!}

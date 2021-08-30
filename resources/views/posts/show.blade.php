@@ -9,6 +9,7 @@
         <div class="col-md-10 col-12 mx-auto p-2">
             <div class="card">
                 <div class="card-header">
+                <img class="img-fluid card-img" src="/storage/cover_images/{{$post->cover_image}}" alt="{{$post->title}}">
                     <h1>{{$post->title}}</h1>
                 </div>
                 <div class="card-body">

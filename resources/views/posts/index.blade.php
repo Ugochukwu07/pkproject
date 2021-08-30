@@ -7,6 +7,7 @@
             @foreach($posts as $post)
                 <div class="card  br mx-auto col-md-4 p-1">
                     <div class="card-header">
+                        <img class="img-fluid card-img" src="/storage/cover_images/{{$post->cover_image}}" alt="{{$post->title}}">
                        <h3 class="title"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
                         <small class="text-muted">Created At: {{date('F j, Y h:i:s a', strtotime($post->created_at))}}</small>
                     </div>
